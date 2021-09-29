@@ -24,8 +24,8 @@ const Resolution = ({ setCurrentPage, headerPosted, incidentId }) => {
             dispatch(GetResolution(editIncident.ID))
         }
         else {
-            dispatch(GetResolution(incidentId))  // eslint-disable-next-line
-        }
+            dispatch(GetResolution(incidentId))  
+        }   // eslint-disable-next-line
     },[])
 
     if (editResolution === null) {

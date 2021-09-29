@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { AddExternalLogin } from '../../store/actions';
  

@@ -1,8 +1,8 @@
 import { put, call, takeLatest } from "redux-saga/effects";
-import { REGISTER, LOGIN, LOGOUT, REFRESH_TOKEN, GET_UNAPPROVED_USERS, APPROVE_USER, CHANGE_PASSWORD, UPDATE_USER, GET_CLANS, GET_USER_INFO, ADD_EXTERNAL_LOGIN } from "../../constants/action-types";
+import { REGISTER, LOGIN, LOGOUT, REFRESH_TOKEN, GET_UNAPPROVED_USERS, APPROVE_USER, CHANGE_PASSWORD, UPDATE_USER, GET_CLANS, ADD_EXTERNAL_LOGIN } from "../../constants/action-types";
 import UserNumberToRole from "../../constants/EnumFunctions";
 import authService from "../../services/AuthService";
-import { getUserInfo, RemoveCurrentlyLogged, SaveClans, SaveCurrentlyLogged, SaveToken, SaveUnapprovedUsers } from "../actions";
+import { RemoveCurrentlyLogged, SaveClans, SaveCurrentlyLogged, SaveToken, SaveUnapprovedUsers } from "../actions";
 import makeid from '../../constants/RandomGenerator';
 import incidentService from "../../services/IncidentService";
 

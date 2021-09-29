@@ -20,6 +20,10 @@ const WorkRequestMenu = ({setCurrentForm,currentForm}) => {
           Equipment
         </button>
 
+        <button className={`ui green button item ${currentForm === 4 ? 'active' : ''}`} style={{width: '100%'}}  onClick={() => setCurrentForm(4)}>
+          Switching instructions
+        </button>
+
       </div>
     );
 }
