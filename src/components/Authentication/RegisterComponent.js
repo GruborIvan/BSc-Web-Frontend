@@ -32,7 +32,7 @@ const RegisterComponent = ({showLogin}) => {
 
         <Formik 
             onSubmit={onRegisterSubmit}
-            initialValues={{email : '', date: Date.now(), ime: '', prz: '', pass: '', pass2: '', role: ''}}
+            initialValues={{ email : '', date: Date.now(), ime: '', prz: '', pass: '', pass2: '', role: '' }}
             validationSchema={validationSheme}>
             
             {({setFieldValue}) => (

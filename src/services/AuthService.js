@@ -20,10 +20,10 @@ const registerNewUser = async (payload) => {
 }
 
 const registerUserInfo = async (payload) => {
-    const response = await axios.post(BASE_URL + ENDPOINTS.USER_INFO, payload);
-    if (response.status !== 201) {
-        alert("Error while registering new user!");
+    try {
+        await axios.post(BASE_URL + ENDPOINTS.USER_INFO, payload);
     }
+    catch(error) {  }
 }
 
 const loginUser = async (payload) => {
