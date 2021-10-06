@@ -36,9 +36,9 @@ const CallsComponent = () => {
         return <tr key={call.Id}>
             <td> {call.Razlog} </td>
             <td> {call.Kvar} </td>
-            <td> {call.UsernameKor} </td>
+            <td> {call.UsernameKor === '' ? <i style={{color: 'green'}}> Anonimna prijava poziva </i> : call.UsernameKor} </td>
             <td> {call.Komentar} </td>
-            <td> {call.IncidentId} </td>
+            <td> {call.IncidentId === '' ? <i style={{color: 'green'}}> None </i> : call.IncidentId} </td>
         </tr>
     })
 
@@ -46,8 +46,8 @@ const CallsComponent = () => {
         <div style={{marginLeft: 150, height: 550}}>
         <div className="ui raised container segment" style={{paddingLeft: 20,marginTop: 100, position: 'fixed', width: 1280, right: 1, left: 150, height: 520}} >
             {/* TABELA */}
-            <h2 className="ui header" style={{ marginLeft: 5 }}> All Calls </h2>
-            <table className="ui sortable celled green table" style={{marginTop: 12}}>
+            <h2 className="ui header" style={{ marginLeft: 15, marginTop: 10 }}> All Calls </h2>
+            <table className="ui sortable celled green table" style={{marginTop: 40}}>
                     <thead>
                         <tr>
                             <th>

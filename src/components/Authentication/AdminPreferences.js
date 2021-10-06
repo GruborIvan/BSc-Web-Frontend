@@ -27,7 +27,7 @@ const AdminPreferences = () => {
     const userDetailsRendered = users.map((user) => {
         return (<div className="card" key={user.Username}>
             <div className="content">
-                <img className="right floated medium ui image" src={pictureMapper(user.NazivProfilneSlike)} alt="Nema slike"/>
+                <img className="right floated medium ui image" src={pictureMapper(user.NazivProfilneSlike)} alt="Nema slike" style={{ height: 250, width: 260 }}/>
                 <div className="header">
                     {user.Username}
                 </div>
