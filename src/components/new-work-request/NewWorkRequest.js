@@ -42,7 +42,7 @@ const NewWorkRequest = () => {
             <div style={{ float: 'left', marginTop: 35 }}>
                 <WorkRequestMenu setCurrentForm={setCurrentPage} currentForm={currentPage} />
             </div>
-            <div style={{float: 'left', marginLeft: 300, marginTop: 20}}>
+            <div style={{float: 'left', marginLeft: 130, marginTop: 20}}>
                 {renderedPage()}
             </div>
         </div>

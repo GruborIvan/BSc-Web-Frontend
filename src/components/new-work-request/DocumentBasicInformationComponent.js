@@ -26,7 +26,7 @@ const DocumentBasicInformationComponent = () => {
         return <option value={inc.ID}> {inc.ID} </option>
     })
 
-    return <div>
+    return <div style={{ marginTop: 30 }}>
         <Formik onSubmit={onFormSubmit} 
             validationSchema={validationSheme}
             initialValues={{ Type: '', Company: '', PhoneNo: '' }}>
@@ -43,16 +43,18 @@ const DocumentBasicInformationComponent = () => {
                                 <option value="NEPLANIRANI_INCIDENT">Neplanirani incident</option>
                             </select> 
                         </td>
-                        <td> <h3> Company: </h3> </td>
-                        <td> 
-                            <Field type="text" name="Company" placeholder="Description.." style={{ marginTop: 12 }}/>
+                        <td> <h3 style={{ marginLeft: 80 }}> Company: </h3> </td>
+                        <td>
+                            <div style={{ marginLeft: 20 }}> 
+                                <Field type="text" name="Company" placeholder="Description.." style={{ marginTop: 12 }}/>
+                            </div>
                         </td>
                     </tr>
 
                     <tr>
                         <td> <h3> Status: </h3> </td>
                         <td> <h4> Draft. </h4> </td>
-                        <td> <h3> Phone No: </h3> </td>
+                        <td> <h3 style={{ marginLeft: 80 }}> Phone No: </h3> </td>
                         <td>
                             <Field type="text" name="PhoneNo" placeholder="Description.." style={{ marginTop: 12 }}/>
                         </td>
@@ -61,34 +63,34 @@ const DocumentBasicInformationComponent = () => {
                     <tr>
                         <td> <h3> Incident: </h3> </td>
                         <td>
-                            <select name="Incident" className="ui dropdown" style={{marginTop: 15, width: 165}} onChange={(e) => setFieldValue("Type",e.target.value)}>
+                            <select name="Incident" className="ui dropdown" style={{marginTop: 5, width: 165}} onChange={(e) => setFieldValue("Type",e.target.value)}>
                                 {renderedIncidentIds}
                             </select>
                         </td>
-                        <td> <h3> Date created: </h3> </td>
+                        <td> <h3 style={{ marginLeft: 80 }}> Date created: </h3> </td>
                         <td>
-                        <input id="ETA" type="date" name="ETA" style={{ width: 150, height: 38, marginTop: 18 }} onChange={(e) => setFieldValue("DateCreated",e.target.value)} />
+                        <input id="ETA" type="date" name="ETA" style={{ width: 150, height: 38, marginTop: 5 }} onChange={(e) => setFieldValue("DateCreated",e.target.value)} />
                         </td>
                     </tr>
 
                     <tr>
                         <td> <h3> Work request: </h3> </td>
                         <td> </td>
-                        <td> <h3> Field crew: </h3> </td>
+                        <td> <h3 style={{ marginLeft: 80 }}> Field crew: </h3> </td>
                         <td> </td>
                     </tr>
 
                     <tr>
                         <td> <h3> Type of work: </h3> </td>
                         <td> </td>
-                        <td> <h3> Start date/time: </h3> </td>
+                        <td> <h3 style={{ marginLeft: 80 }}> Start date/time: </h3> </td>
                         <td> </td>
                     </tr>
 
                     <tr>
                         <td> <h3> Created by: </h3> </td>
                         <td> </td>
-                        <td> <h3> End date/time: </h3> </td>
+                        <td> <h3 style={{ marginLeft: 80 }}> End date/time: </h3> </td>
                         <td> </td>
                     </tr>
 
