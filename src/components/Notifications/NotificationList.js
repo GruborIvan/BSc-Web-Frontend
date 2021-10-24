@@ -11,7 +11,7 @@ const NotificationList = ({ notificationMode }) => {
 
     const renderedNotifications = notifications.map(notification => {
         return <div key={notification.IdPoruke}>
-            <SingleNotification notification={notification} />
+            <SingleNotification notification={notification} mode={notificationMode} />
         </div>
     })
 

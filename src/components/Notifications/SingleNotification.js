@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { markNotificationAsRead } from '../../store/actions';
 
-const SingleNotification = ({ notification }) => {
+const SingleNotification = ({ notification, mode }) => {
 
     const dispatch = useDispatch();
 
@@ -26,20 +26,35 @@ const SingleNotification = ({ notification }) => {
         }
     }
 
-    return <div className={`ui ${getNotificationColor()} raised container segment`} style={{ width: 600, marginBottom: 15, overflow: 'hidden' }} onClick={() => dispatch(markNotificationAsRead([notification.IdPoruke]))}>
-        <div style={{ float: 'left' }}>
-            {getNotificationIcon()}
-        </div>
+    return mode === 'Unread notifications' 
+        ? 
+        <div className={`ui ${getNotificationColor()} raised container segment`} style={{ width: 600, marginBottom: 15, overflow: 'hidden' }} onClick={() => dispatch(markNotificationAsRead([notification.IdPoruke]))}>
+            <div style={{ float: 'left' }}>
+                {getNotificationIcon()}
+            </div>
 
-        <div style={{ marginLeft: 45, float: 'left', marginRight: 150 }}>
-            {notification.Sadrzaj}
-        </div>
+            <div style={{ marginLeft: 45, float: 'left', marginRight: 150 }}>
+                {notification.Sadrzaj}
+            </div>
 
-        <div>
-            {notification.Timestamp.substring(0,10)}
+            <div>
+                {notification.Timestamp.substring(0,10)}
+            </div>   
         </div>
-        
-    </div>
+        : 
+        <div className={`ui ${getNotificationColor()} raised container segment`} style={{ width: 600, marginBottom: 15, overflow: 'hidden' }}>
+            <div style={{ float: 'left' }}>
+                {getNotificationIcon()}
+            </div>
+
+            <div style={{ marginLeft: 45, float: 'left', marginRight: 150 }}>
+                {notification.Sadrzaj}
+            </div>
+
+            <div>
+                {notification.Timestamp.substring(0,10)}
+            </div>   
+        </div>
 }
 
 export default SingleNotification;
