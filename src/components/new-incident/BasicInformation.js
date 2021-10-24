@@ -19,8 +19,6 @@ const BasicInformation = ({ incidentId, setHeaderPosted, setCurrentPage, setInci
     const editIncident = useSelector(editIncidentSelector);
     const dispatch = useDispatch();
 
-    console.log(editIncident)
-
     useEffect(() => {
         if (editIncident !== null) {
             dispatch(SaveEditIncident(editIncident.ID));

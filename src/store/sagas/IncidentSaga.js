@@ -1,10 +1,11 @@
 import { call, put, select, takeLatest } from "redux-saga/effects";
-import { ADD_CALL, ADD_DEVICE, ADD_INCIDENT, ADD_NOTIFICATION, ADD_RESOLUTION, ASSIGN_CREW, ASSIGN_USER_TO_CREW, DELETE_DEVICE, GET_ALL_DEVICES, GET_CALLS, GET_CREWS, GET_CURRENT_CREW, GET_DEVICES, GET_INCIDENTS, GET_NOTIFICATIONS, GET_RESOLUTION_FOR_INCIDENT, MARK_NOTIFICATIONS_READ, SAVE_BASIC_INFO, SAVE_EDIT_INCIDENT, SORT_INCIDENTS } from "../../constants/action-types";
+import { ADD_DEVICE, ADD_INCIDENT, ADD_RESOLUTION, ASSIGN_CREW, ASSIGN_USER_TO_CREW, DELETE_DEVICE, GET_ALL_DEVICES, GET_CREWS, GET_CURRENT_CREW, GET_DEVICES, GET_INCIDENTS, GET_RESOLUTION_FOR_INCIDENT, SAVE_BASIC_INFO, SAVE_EDIT_INCIDENT, SORT_INCIDENTS } from "../../constants/action-types";
 import incidentService from '../../services/IncidentService';
-import { SaveCalls, SaveClans, SaveCrews, SaveCurrentCrew, SaveCurrentIncidentToRedux, SaveDevices, SaveIncidentsToBase, SaveNotifications, SaveResolution } from "../actions";
+import { SaveClans, SaveCrews, SaveCurrentCrew, SaveCurrentIncidentToRedux, SaveDevices, SaveIncidentsToBase, SaveResolution } from "../actions";
 import { loggedUserSelector } from "../selectors/AuthSelector";
 import makeid from '../../constants/RandomGenerator';
 import authService from "../../services/AuthService";
+
 
 function* getIncidents({payload}) {
     let response;
@@ -16,17 +17,6 @@ function* getIncidents({payload}) {
         response = yield call(incidentService.getMyIncidents,user.Username)
     }
     yield put(SaveIncidentsToBase(response))
-}
-
-function* GetCalls({incident}) {
-    let response;
-    if (incident === 'Razlog' || incident === 'Kvar' || incident === 'UsernameKor' || incident === 'IncidentId') {
-        response = yield call(incidentService.getPozivi,incident);
-    }
-    else {
-        response = yield call(incidentService.getPoziviForIncident,incident);
-    }
-    yield put(SaveCalls(response));
 }
 
 function* AddIncident(payload) {
@@ -67,13 +57,6 @@ function* addResolution(payload) {
     yield put(SaveResolution(resolution));
 }
 
-function* addCall({payload}) {
-    console.log(payload.IncidentId)
-    yield call(incidentService.postCall,payload)
-    const result = yield call(incidentService.getPoziviForIncident,payload.IncidentId);
-    yield put(SaveCalls(result));
-}
-
 function* getAllDevices() {
     const response = yield call(incidentService.getAllOprema)
     yield put(SaveDevices(response))
@@ -92,32 +75,9 @@ function* getResolution({payload}) {
     catch(error) {  }
 }
 
-function* getNotifications({ payload }) {
-    let response;
-    if (payload === 'all') {
-        response = yield call(incidentService.getAllNotifications)
-
-    }
-    else if (payload === 'unread') {
-        response = yield call(incidentService.getUnreadNotifications)
-    }
-    else {
-        response = yield call(incidentService.getNotificationType,payload)
-    }
-    yield put(SaveNotifications(response));
-}
-
-function* addNotification({ payload }) {
-    yield call(incidentService.addNotification,payload)
-}
-
 function* sortIncidents({ payload }) {
     const results = yield call(incidentService.sortIncidents,payload)
     yield put(SaveIncidentsToBase(results));
-}
-
-function* markNotificationAsRead({ payload }) {
-    yield call(incidentService.markNotificationsRead,payload);
 }
 
 function* getCrews() {
@@ -131,6 +91,7 @@ function* getCurrentCrew({ payload }) {
 }
 
 function* assignCrewToIncident({ payload }) {
+    console.log(payload)
     yield call(incidentService.assignCrewToIncident,payload);
     const response = yield call(incidentService.getCrewForIncident,payload.IncidentId);
     yield put(SaveCurrentCrew(response));
@@ -149,28 +110,20 @@ function* assignUserToCrew({ payload }) {
 }
 
 function* saveIncidentBasicInfo({ payload }) {
-    console.log('SAGA')
-    console.log(payload)
-    console.log('SAGA')
     yield put(SaveCurrentIncidentToRedux(payload));
 }
 
 
 export default function* incidentSaga() {
     yield takeLatest(GET_INCIDENTS,getIncidents)
-    yield takeLatest(GET_CALLS,GetCalls)
     yield takeLatest(ADD_INCIDENT, AddIncident)
     yield takeLatest(GET_DEVICES, getDevices)
     yield takeLatest(ADD_DEVICE, addDevice)
     yield takeLatest(ADD_RESOLUTION, addResolution)
-    yield takeLatest(ADD_CALL, addCall)
     yield takeLatest(GET_ALL_DEVICES,getAllDevices)
     yield takeLatest(SAVE_EDIT_INCIDENT, getIncidentById)
     yield takeLatest(GET_RESOLUTION_FOR_INCIDENT, getResolution)
-    yield takeLatest(GET_NOTIFICATIONS, getNotifications)
-    yield takeLatest(ADD_NOTIFICATION, addNotification)
     yield takeLatest(SORT_INCIDENTS, sortIncidents)
-    yield takeLatest(MARK_NOTIFICATIONS_READ, markNotificationAsRead)
     yield takeLatest(GET_CREWS, getCrews)
     yield takeLatest(GET_CURRENT_CREW, getCurrentCrew)
     yield takeLatest(ASSIGN_CREW, assignCrewToIncident)

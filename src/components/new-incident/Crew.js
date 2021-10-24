@@ -21,7 +21,7 @@ const Crew = ({ setCurrentPage, incidentId, headerPosted }) => {
             alert('You have to enter basic information first!')
             return;
         }
-        dispatch(AssignCrew({ IncidentId: incidentId, CrewId: crewId }))
+        dispatch(AssignCrew({ crewId: crewId, incidentId: incidentId }))
         setCurrentPage(5)
     }
 
