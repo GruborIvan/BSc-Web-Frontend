@@ -95,7 +95,7 @@ function* updateLoggedInUser({ payload }) {
 }
 
 function* getClans() {
-    const response = yield call(incidentService.getClans);
+    const response = yield call(authService.getCrews);
     yield put(SaveClans(response));
 }
 

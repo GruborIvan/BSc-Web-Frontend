@@ -1,9 +1,10 @@
 import { call, put, select, takeLatest } from "redux-saga/effects";
-import { ADD_CALL, ADD_DEVICE, ADD_INCIDENT, ADD_NOTIFICATION, ADD_RESOLUTION, ASSIGN_CREW, ASSIGN_USER_TO_CREW, DELETE_DEVICE, GET_ALL_DEVICES, GET_CALLS, GET_CREWS, GET_CURRENT_CREW, GET_DEVICES, GET_INCIDENTS, GET_NOTIFICATIONS, GET_RESOLUTION_FOR_INCIDENT, GET_WORK_REQUESTS, MARK_NOTIFICATIONS_READ, SAVE_BASIC_INFO, SAVE_EDIT_INCIDENT, SORT_INCIDENTS } from "../../constants/action-types";
+import { ADD_CALL, ADD_DEVICE, ADD_INCIDENT, ADD_NOTIFICATION, ADD_RESOLUTION, ASSIGN_CREW, ASSIGN_USER_TO_CREW, DELETE_DEVICE, GET_ALL_DEVICES, GET_CALLS, GET_CREWS, GET_CURRENT_CREW, GET_DEVICES, GET_INCIDENTS, GET_NOTIFICATIONS, GET_RESOLUTION_FOR_INCIDENT, MARK_NOTIFICATIONS_READ, SAVE_BASIC_INFO, SAVE_EDIT_INCIDENT, SORT_INCIDENTS } from "../../constants/action-types";
 import incidentService from '../../services/IncidentService';
-import { SaveCalls, SaveClans, SaveCrews, SaveCurrentCrew, SaveCurrentIncidentToRedux, SaveDevices, SaveIncidentsToBase, SaveNotifications, SaveResolution, SaveWorkRequests } from "../actions";
+import { SaveCalls, SaveClans, SaveCrews, SaveCurrentCrew, SaveCurrentIncidentToRedux, SaveDevices, SaveIncidentsToBase, SaveNotifications, SaveResolution } from "../actions";
 import { loggedUserSelector } from "../selectors/AuthSelector";
 import makeid from '../../constants/RandomGenerator';
+import authService from "../../services/AuthService";
 
 function* getIncidents({payload}) {
     let response;
@@ -15,20 +16,6 @@ function* getIncidents({payload}) {
         response = yield call(incidentService.getMyIncidents,user.Username)
     }
     yield put(SaveIncidentsToBase(response))
-}
-
-function* GetWorkRequests({ payload }) {
-    let response;
-    if (payload.type === 'Work requests') {
-        response = yield call(incidentService.getWorkRequests,payload.col);
-    }
-    else if (payload.type === 'Work plans') {
-        response = yield call(incidentService.getWorkPlans,payload.col);
-    }
-    else {
-        response = yield call(incidentService.getSafetyDocuments,payload.col);
-    }
-    yield put(SaveWorkRequests(response))
 }
 
 function* GetCalls({incident}) {
@@ -134,7 +121,7 @@ function* markNotificationAsRead({ payload }) {
 }
 
 function* getCrews() {
-    const response = yield call(incidentService.getCrews);
+    const response = yield call(authService.getCrews);
     yield put(SaveCrews(response));
 }
 
@@ -171,7 +158,6 @@ function* saveIncidentBasicInfo({ payload }) {
 
 export default function* incidentSaga() {
     yield takeLatest(GET_INCIDENTS,getIncidents)
-    yield takeLatest(GET_WORK_REQUESTS,GetWorkRequests)
     yield takeLatest(GET_CALLS,GetCalls)
     yield takeLatest(ADD_INCIDENT, AddIncident)
     yield takeLatest(GET_DEVICES, getDevices)

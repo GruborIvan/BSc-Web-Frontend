@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 
-const BASE_URL = 'http://localhost:8000';
+const BASE_URL = 'http://172.22.32.1:8000';
 const headers = { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }
 
 const ENDPOINTS = {
@@ -10,6 +10,7 @@ const ENDPOINTS = {
     REFRESH: '/token/refresh',
     USER_INFO : '/api/UserInfo',
     CHANGE_PASS: '/api/Account/ChangePassword',
+    CREWS: '/api/Ekipa',
 }
 
 const registerNewUser = async (payload) => {
@@ -91,6 +92,11 @@ const updateLoggedInUser = async(payload) => {
     await axios.put(BASE_URL + ENDPOINTS.USER_INFO,payload);
 }
 
+const getCrews = async () => {
+    const response = await axios.get(BASE_URL + ENDPOINTS.CREWS)
+    return response.data;
+}
+
 const authService = {
     registerNewUser,
     loginUser,
@@ -100,6 +106,7 @@ const authService = {
     approveUser,
     changePass,
     updateLoggedInUser,
+    getCrews,
 }
 
 export default authService;

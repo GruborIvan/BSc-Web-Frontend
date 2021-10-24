@@ -11,7 +11,6 @@ const ENDPOINTS = {
     ONE_INCIDENT: '/SingleIncident',
     NOTIFICATIONS: '/Poruka',
     INCIDENTI_SORT: '/IncidentiSort',
-    CREWS: '/Crew',
     SAFETY_DOCS: '/SafetyDocumentsSort',
     WORK_PLANS: '/PlanoviRadaSort',
     CLANOVI: '/CrewMembers',
@@ -53,39 +52,6 @@ const getIncidentById = async (incidentId) => {
 const addNewIncident = async(payload) => {
     try {
         await axiosClient.post(ENDPOINTS.INCIDENTS, payload)
-    }
-    catch(error) {
-        alert('Fetch error! Please try again!')
-        return undefined
-    }
-}
-
-const getWorkRequests = async (payload) => {
-    try {
-        const response = await axiosClient.get(ENDPOINTS.WORK_REQUESTS + `?columnName=${payload}`);
-        return response.data;
-    }
-    catch(error) {
-        alert('Fetch error! Please try again!')
-        return undefined
-    }
-}
-
-const getSafetyDocuments = async (payload) => {
-    try {
-        const response = await axiosClient.get(ENDPOINTS.SAFETY_DOCS + `?columnName=${payload}`);
-        return response.data;
-    }
-    catch(error) {
-        alert('Fetch error! Please try again!')
-        return undefined
-    }
-}
-
-const getWorkPlans = async (payload) => {
-    try {
-        const response = await axiosClient.get(ENDPOINTS.WORK_PLANS  + `?columnName=${payload}`);
-        return response.data;
     }
     catch(error) {
         alert('Fetch error! Please try again!')
@@ -177,11 +143,6 @@ const getResolutionForIncident = async(incidentId) => {
     }
 } 
 
-const getCrews = async () => {
-    const response = await axiosClient.get(ENDPOINTS.CREWS)
-    return response.data;
-}
-
 const updateIncident = async(payload) => {
     console.log(payload)
     try {
@@ -250,18 +211,12 @@ const deleteDevice = async (payload) => {
     await axiosClient.delete(ENDPOINTS.EQUIPMENT + `/${payload}`);
 }
 
-const getClans = async () => {
-    const result = await axiosClient.get(ENDPOINTS.CLANOVI)
-    return result.data;
-}
-
 const assignUserToCrew = async (payload) => {
     await axiosClient.post(ENDPOINTS.CLANOVI,payload)
 }
 
 const incidentService = {
     getIncidents,
-    getWorkRequests,
     getPozivi,
     getMyIncidents,
     addNewIncident,
@@ -282,13 +237,9 @@ const incidentService = {
     addNotification,
     sortIncidents,
     markNotificationsRead,
-    getCrews,
     getCrewForIncident,
     assignCrewToIncident,
-    getWorkPlans,
-    getSafetyDocuments,
     deleteDevice,
-    getClans,
     assignUserToCrew,
 }
 
