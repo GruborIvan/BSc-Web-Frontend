@@ -1,5 +1,5 @@
 import { put, call, takeLatest } from "redux-saga/effects";
-import { REGISTER, LOGIN, LOGOUT, REFRESH_TOKEN, GET_UNAPPROVED_USERS, APPROVE_USER, CHANGE_PASSWORD, UPDATE_USER, GET_CLANS, ADD_EXTERNAL_LOGIN } from "../../constants/action-types";
+import { REGISTER, LOGIN, LOGOUT, REFRESH_TOKEN, GET_UNAPPROVED_USERS, APPROVE_USER, CHANGE_PASSWORD, UPDATE_USER, GET_CLANS, ADD_EXTERNAL_LOGIN, ASSIGN_USER_TO_CREW } from "../../constants/action-types";
 import UserNumberToRole from "../../constants/EnumFunctions";
 import authService from "../../services/AuthService";
 import { RemoveCurrentlyLogged, SaveClans, SaveCurrentlyLogged, SaveToken, SaveUnapprovedUsers } from "../actions";
@@ -95,7 +95,19 @@ function* updateLoggedInUser({ payload }) {
 }
 
 function* getClans() {
-    const response = yield call(authService.getCrews);
+    const response = yield call(authService.getClans);
+    yield put(SaveClans(response));
+}
+
+function* assignUserToCrew({ payload }) {
+    console.log(payload);
+    try {
+        yield call(authService.assignUserToCrew,payload);
+    }
+    catch(error) {
+
+    }
+    const response = yield call(authService.getClans);
     yield put(SaveClans(response));
 }
 
@@ -110,4 +122,5 @@ export default function* authSaga() {
     yield takeLatest(UPDATE_USER, updateLoggedInUser)
     yield takeLatest(GET_CLANS, getClans)
     yield takeLatest(ADD_EXTERNAL_LOGIN, addExternalLogin)
+    yield takeLatest(ASSIGN_USER_TO_CREW, assignUserToCrew)
 }

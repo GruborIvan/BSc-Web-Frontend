@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 
-const BASE_URL = 'http://172.22.32.1:8000';
+const BASE_URL = 'http://172.21.96.1:8000';
 const headers = { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }
 
 const ENDPOINTS = {
@@ -11,6 +11,7 @@ const ENDPOINTS = {
     USER_INFO : '/api/UserInfo',
     CHANGE_PASS: '/api/Account/ChangePassword',
     CREWS: '/api/Ekipa',
+    CREW_MEMBERS: '/api/ClanoviEkipe'
 }
 
 const registerNewUser = async (payload) => {
@@ -93,8 +94,23 @@ const updateLoggedInUser = async(payload) => {
 }
 
 const getCrews = async () => {
-    const response = await axios.get(BASE_URL + ENDPOINTS.CREWS)
+    const response = await axios.get(BASE_URL + ENDPOINTS.CREWS);
     return response.data;
+}
+
+const getClans = async () => {
+    const response = await axios.get(BASE_URL + ENDPOINTS.CREW_MEMBERS);
+    return response.data;
+}
+
+const assignUserToCrew = async (payload) => {
+    console.log(payload)
+    try {
+        await axios.post(BASE_URL + ENDPOINTS.CREWS,payload);
+    }
+    catch(error) {
+
+    }
 }
 
 const authService = {
@@ -107,6 +123,8 @@ const authService = {
     changePass,
     updateLoggedInUser,
     getCrews,
+    getClans,
+    assignUserToCrew
 }
 
 export default authService;

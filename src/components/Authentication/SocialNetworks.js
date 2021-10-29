@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { useDispatch } from 'react-redux';
-import { AddExternalLogin } from '../../store/actions';
+import { useHistory } from 'react-router';
+import { AddExternalLogin, LoginUser } from '../../store/actions';
  
 const clientId = "553661382916-gcsp5mk585ef446nh9tner5i1eo6t0q3.apps.googleusercontent.com";
  
@@ -10,21 +11,20 @@ function App() {
   const [loading, setLoading] = useState('Loading...');
   const [user, setUser] = useState(null);
   const dispatch = useDispatch();
+  const { push } = useHistory();
   
   const handleLoginSuccess = (response) => {
-    console.log(response);
-    //let userInfo = {email : response.profileObj.email, date: '', ime: response.profileObj.givenName, prz: response.profileObj.familyName, role: 'CLANEKIPE'};
-    //dispatch(AddExternalLogin(userInfo))
-    
-    //const resp = axios.post("http://localhost:8000/api/Account/AddExternalLogin", response);
-    //console.log("Login Success ", resp);
-    //setUser(resp.profileObj);
-    //setLoading();
+    //console.log('TU SAM');
+    //const data = { username: 'admin@app.com', password: 'Ivangrubor.98', 'grant_type' : 'password' }
+    //const payload = {data: data, loginCallback: () => push('/dashboard/home')}
+    //dispatch(LoginUser(payload))
   }
  
   const handleLoginFailure = error => {
-    console.log("Login Failure ", error);
-    setLoading();
+    //console.log('TU SAM');
+    //const data = { username: 'ivan.grubor@gmail.com', password: 'Ivangrubor.98', 'grant_type' : 'password' }
+    //const payload = {data: data, loginCallback: () => push('/dashboard/home')}
+    //dispatch(LoginUser(payload))
   }
  
   const handleLogoutSuccess = (response) => {

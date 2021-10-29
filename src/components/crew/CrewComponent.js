@@ -24,10 +24,6 @@ const CrewComponent = () => {
     }
 
     const onAssignCrew = () => {
-        if (selectedClan === 1) {
-            alert('You have to select a Crew member!')
-            return;
-        }
         const payload = { CrewId: selectedCrew, UserId: selectedClan }
         dispatch(AssignUserToCrew(payload)); // eslint-disable-next-line
     }
