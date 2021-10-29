@@ -24,4 +24,6 @@ export const CurrentCrewSelector = (state) => state.incident.CurrentCrew;
 
 export const DocumentsSelector = (state) => state.incident.Documents;
 
-export const ClanoviSelector = (state) => state.incident.ClanoviEkipe
+export const ClanoviSelector = (state) => state.incident.ClanoviEkipe;
+
+export const DashboardSelector = (state) => state.incident.Dashboard;

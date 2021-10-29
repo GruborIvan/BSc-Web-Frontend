@@ -1,7 +1,7 @@
 import { call, put, select, takeLatest } from "redux-saga/effects";
-import { ADD_DEVICE, ADD_INCIDENT, ADD_RESOLUTION, ASSIGN_CREW, ASSIGN_USER_TO_CREW, DELETE_DEVICE, GET_ALL_DEVICES, GET_CREWS, GET_CURRENT_CREW, GET_DEVICES, GET_INCIDENTS, GET_RESOLUTION_FOR_INCIDENT, SAVE_BASIC_INFO, SAVE_EDIT_INCIDENT, SORT_INCIDENTS } from "../../constants/action-types";
+import { ADD_DEVICE, ADD_INCIDENT, ADD_RESOLUTION, ASSIGN_CREW, ASSIGN_USER_TO_CREW, DELETE_DEVICE, GET_ALL_DEVICES, GET_CREWS, GET_CURRENT_CREW, GET_DEVICES, GET_INCIDENTS, GET_RESOLUTION_FOR_INCIDENT, LOAD_DASHBOARD, SAVE_BASIC_INFO, SAVE_EDIT_INCIDENT, SORT_INCIDENTS } from "../../constants/action-types";
 import incidentService from '../../services/IncidentService';
-import { SaveClans, SaveCrews, SaveCurrentCrew, SaveCurrentIncidentToRedux, SaveDevices, SaveIncidentsToBase, SaveResolution } from "../actions";
+import { SaveClans, SaveCrews, SaveCurrentCrew, SaveCurrentIncidentToRedux, SaveDashboardData, SaveDevices, SaveIncidentsToBase, SaveResolution } from "../actions";
 import { loggedUserSelector } from "../selectors/AuthSelector";
 import makeid from '../../constants/RandomGenerator';
 import authService from "../../services/AuthService";
@@ -113,6 +113,10 @@ function* saveIncidentBasicInfo({ payload }) {
     yield put(SaveCurrentIncidentToRedux(payload));
 }
 
+function* loadDashboard() {
+    const response = yield call(incidentService.getDashboardData)
+    yield put(SaveDashboardData(response))
+}
 
 export default function* incidentSaga() {
     yield takeLatest(GET_INCIDENTS,getIncidents)
@@ -130,4 +134,5 @@ export default function* incidentSaga() {
     yield takeLatest(DELETE_DEVICE, deleteDevice)
     yield takeLatest(ASSIGN_USER_TO_CREW, assignUserToCrew)
     yield takeLatest(SAVE_BASIC_INFO, saveIncidentBasicInfo)
+    yield takeLatest(LOAD_DASHBOARD,loadDashboard)
 }

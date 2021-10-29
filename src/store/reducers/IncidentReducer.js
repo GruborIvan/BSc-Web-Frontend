@@ -1,4 +1,4 @@
-import { DELETE_EDIT_INCIDENT, SAVE_CALLS, SAVE_CLANS, SAVE_CREWS, SAVE_CURRENT_CREW, SAVE_DETAILS, SAVE_DEVICES, SAVE_INCIDENTS, SAVE_NOTIFICATIONS, SAVE_RESOLUTION_FOR_INCIDENT, SAVE_WORK_REQUESTS } from "../../constants/action-types"
+import { DELETE_EDIT_INCIDENT, SAVE_CALLS, SAVE_CLANS, SAVE_CREWS, SAVE_CURRENT_CREW, SAVE_DASHBOARD_DATA, SAVE_DETAILS, SAVE_DEVICES, SAVE_INCIDENTS, SAVE_NOTIFICATIONS, SAVE_RESOLUTION_FOR_INCIDENT, SAVE_WORK_REQUESTS } from "../../constants/action-types"
 
 const initialState = {
     incidents : [],
@@ -11,6 +11,7 @@ const initialState = {
     Crews: [],
     CurrentCrew: null,
     ClanoviEkipe: [],
+    Dashboard: null
 }
 
 export default function incident(state = initialState, action) {
@@ -28,9 +29,6 @@ export default function incident(state = initialState, action) {
             return { ...state, devices: action.payload };
         }
         case SAVE_DETAILS: {
-            console.log('REDUCER')
-            console.log(action)
-            console.log('REDUCER')
             return { ...state, editIncident: action.payload };
         }
         case DELETE_EDIT_INCIDENT: {
@@ -50,6 +48,9 @@ export default function incident(state = initialState, action) {
         }
         case SAVE_CLANS : {
             return { ...state, ClanoviEkipe: action.payload }
+        }
+        case SAVE_DASHBOARD_DATA: {
+            return { ...state, Dashboard: action.payload }
         }
         default: {
             return {...state}

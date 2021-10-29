@@ -10,6 +10,7 @@ const ENDPOINTS = {
     INCIDENTI_SORT: '/IncidentiSort',
     SAFETY_DOCS: '/SafetyDocumentsSort',
     WORK_PLANS: '/PlanoviRadaSort',
+    DASHBOARD: '/DashboardData'
 }
 
 const getIncidents = async () => {
@@ -154,6 +155,16 @@ const assignUserToCrew = async (payload) => {
     await axiosClient.post(ENDPOINTS.CLANOVI,payload)
 }
 
+const getDashboardData = async() => {
+    try {
+        const response = await axiosClient.get(ENDPOINTS.DASHBOARD);
+        return response.data;
+    }
+    catch(error) {
+        return undefined;
+    }    
+}
+
 const incidentService = {
     getIncidents,
     getMyIncidents,
@@ -172,6 +183,7 @@ const incidentService = {
     assignCrewToIncident,
     deleteDevice,
     assignUserToCrew,
+    getDashboardData,
 }
 
 export default incidentService;
