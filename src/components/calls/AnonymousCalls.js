@@ -2,8 +2,9 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { AddCall } from '../../store/actions';
+import { AddCall, AddNotification } from '../../store/actions';
 import { Link } from 'react-router-dom';
+import makeId from '../../constants/RandomGenerator'
 
 const validationSheme = yup.object().shape({
     Razlog : yup.string().min(5,'Too short').max(22,'Too long').required('Required'),
@@ -22,6 +23,9 @@ const AnonymousCalls = () => {
         vals.UsernameKor = '';
         dispatch(AddCall(vals))
         alert('Anonymous call registered!')
+
+        const notification = { IdPoruke: 'POR_' + makeId(4), IdKorisnika: 'Anonymous', Sadrzaj: 'Anonymous call registered', Tip: 1, Procitana: 0, Timestamp: '2021-10-29 00:00:00.000' }
+        dispatch(AddNotification(notification));
     };
 
 

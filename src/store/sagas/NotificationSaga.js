@@ -25,6 +25,7 @@ function* markNotificationAsRead({ payload }) {
 }
 
 function* addNotification({ payload }) {
+    console.log(payload)
     yield call(notificationService.addNotification,payload)
 }
 
